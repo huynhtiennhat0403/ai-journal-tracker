@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 class JournalInput(BaseModel):
     date_time: str = Field(
@@ -22,11 +22,12 @@ class JournalInput(BaseModel):
         max_length=10000
     )
 
-    class Config:
+    model_config = ConfigDict(
         schema_extra = {
             "example": {
-                "ngay_thang": "2024-01-15",
-                "tieu_de": "Nhật ký ngày đầu tuần",
-                "noi_dung": "Hôm nay tôi đã bắt đầu tuần mới với nhiều năng lượng..."
+                "date_time": "2024-01-15",
+                "title": "Nhật ký ngày đầu tuần",
+                "content": "Hôm nay tôi đã bắt đầu tuần mới với nhiều năng lượng..."
             }
         }
+    )
