@@ -97,3 +97,49 @@ button:hover {
     display: none;
 }
 
+/* Block 8: Khung hiển thị kết quả AI */
+#resultBox {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background-color: #e8f8f5; /* Xanh ngọc siêu nhạt */
+    border-left: 4px solid #1abc9c; /* Viền nhấn bên trái */
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease; /* Hiệu ứng mờ dần hiện ra */
+}
+
+#resultBox h3 {
+    color: #16a085;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.result-item {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+.result-item strong {
+    color: #34495e;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.emotion-tag {
+    display: inline-block;
+    background-color: #1abc9c;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Định nghĩa hiệu ứng hiện ra */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
