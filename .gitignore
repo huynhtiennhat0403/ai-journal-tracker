@@ -208,3 +208,4 @@ __marimo__/
 
 # Specific to this project
 *.db
+n8n_setup/n8n_data/
