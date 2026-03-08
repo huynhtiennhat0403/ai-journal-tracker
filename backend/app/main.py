@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-N8N_WEBHOOK_URL = "http://localhost:1234/webhook/diary"
+N8N_WEBHOOK_URL = "http://host.docker.internal:1234/webhook/diary"
 
 @app.get("/")
 def read_root():

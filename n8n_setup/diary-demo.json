@@ -1,0 +1,114 @@
+{
+  "name": "diary-demo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/diary",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        32
+      ],
+      "id": "4cd60d6b-8ab6-4d1d-a48f-932e72ffac90",
+      "name": "Webhook",
+      "webhookId": "e4d833ef-bd3e-49bf-8f38-9a03b02c3352"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=NHAP_API_KEY_CUA_BAN_VAO_DAY",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        432,
+        32
+      ],
+      "id": "7208e2f7-57f2-42ad-9f10-602b0be8d5fe",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lấy chuỗi text từ kết quả trả về của mô hình Gemini ở node trước\n// Đường dẫn này dựa trên cấu trúc chuẩn của Gemini API\nlet rawText = $input.item.json.candidates[0].content.parts[0].text;\n\n// 1. Xóa bỏ ```json ở đầu và ``` ở cuối\n// 2. Dùng trim() để xóa các khoảng trắng hoặc dấu xuống dòng thừa\nlet cleanText = rawText.replace(/```json/g, \"\").replace(/```/g, \"\").trim();\n\n// Chuyển đổi chuỗi text đã làm sạch thành một đối tượng JSON thực sự\nlet parsedData = JSON.parse(cleanText);\n\n// Trả về kết quả để các node sau (như Webhook Response) có thể sử dụng trực tiếp\nreturn parsedData;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        32
+      ],
+      "id": "a9e4d266-6b9b-4c8f-869d-4fce78519eaa",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ngay_thang = $input.first().json.body.ngay_thang;\nconst tieu_de = $input.first().json.body.tieu_de;\nconst noi_dung = $input.first().json.body.noi_dung;\n\nconst prompt = `Từ đoạn nhật ký sau, hãy trích xuất thông tin và trả về JSON theo schema.\n\nĐoạn nhật ký:\n- Ngày tháng: ${ngay_thang}\n- Tiêu đề: ${tieu_de}\n- Nội dung: ${noi_dung}\n\nYÊU CẦU:\n1. Đọc kỹ nội dung nhật ký\n2. Trích xuất thông tin thực tế\n3. Điền vào JSON (KHÔNG ĐỂ TRỐNG):\n{\n  \"ngay_thang\": \"DD/MM/YYYY\",\n  \"tieu_de\": null hoặc text,\n  \"cam_xuc_chinh\": [list tối đa 3],\n  \"nguyen_nhan_cot_loi\": \"30-40 từ\",\n  \"goi_y_chanh_niem\": \"30-40 từ\"\n}\nChỉ trả về JSON thuần.`;\n\nreturn [{\n  json: {\n    contents: [{ parts: [{ text: prompt }] }],\n    generationConfig: {\n      temperature: 0.7,\n      topK: 40,\n      topP: 0.95,\n      response_mime_type: \"application/json\"\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        32
+      ],
+      "id": "a5436240-7173-49ce-81c2-45341fe8ce51",
+      "name": "Code in JavaScript1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "db52892e-9182-454f-a510-42c0bc420490",
+  "meta": {
+    "instanceId": "36a30e3d35fb9571bfbf99c65117d0e7d2f743c0aba9a30a1c30831420e76d9b"
+  },
+  "id": "DbVOjOSyWYlwKhOT",
+  "tags": []
+}
