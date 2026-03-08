@@ -1,10 +1,19 @@
 from fastapi import FastAPI, HTTPException
 import httpx
 from models import JournalInput
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Mindfulness Journal API",
     description="API tự động phân tích cảm xúc nhật ký bằng Prompt Engineering & n8n"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 N8N_WEBHOOK_URL = "http://localhost:1234/webhook/diary"
