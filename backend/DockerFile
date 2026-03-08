@@ -1,0 +1,18 @@
+# 1. Sử dụng hệ điều hành Linux siêu nhẹ có sẵn Python 3.10
+FROM python:3.10-slim
+
+# 2. Tạo một thư mục ảo tên là /app bên trong container
+WORKDIR /app
+
+# 3. Copy file requirements.txt vào và cài đặt thư viện
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 4. Copy toàn bộ code trong thư mục backend hiện tại vào /app
+COPY . .
+
+# 5. Mở cổng 8000 cho thế giới bên ngoài truy cập
+EXPOSE 8000
+
+# 6. Câu lệnh khởi động server 
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
