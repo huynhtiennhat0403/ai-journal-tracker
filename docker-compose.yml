@@ -9,9 +9,6 @@ services:
     volumes:
       # Ánh xạ thư mục data ở máy thật vào container để không bị mất nhật ký khi tắt Docker
       - ./backend/data:/app/data
-    extra_hosts:
-      # Giúp Backend trong Docker gọi được n8n đang chạy trên máy tính 
-      - "host.docker.internal:host-gateway"
 
   # Dịch vụ 2: Web Frontend
   frontend:
@@ -21,3 +18,19 @@ services:
     volumes:
       # Ánh xạ thư mục frontend của bạn vào đúng chỗ Nginx cần để hiển thị web
       - ./frontend:/usr/share/nginx/html
+  
+  # Dịch vụ 3: Hệ thống n8n AI
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
+    volumes:
+      # Tạo một thư mục ảo để n8n lưu dữ liệu nội bộ 
+      - ./n8n_setup/n8n_data:/home/node/.n8n
