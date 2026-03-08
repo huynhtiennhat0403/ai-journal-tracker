@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Dịch vụ 1: Backend FastAPI
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Ánh xạ thư mục data ở máy thật vào container để không bị mất nhật ký khi tắt Docker
+      - ./backend/data:/app/data
+    extra_hosts:
+      # Giúp Backend trong Docker gọi được n8n đang chạy trên máy tính 
+      - "host.docker.internal:host-gateway"
+
+  # Dịch vụ 2: Web Frontend
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8080:80" # Truy cập web ở cổng 8080
+    volumes:
+      # Ánh xạ thư mục frontend của bạn vào đúng chỗ Nginx cần để hiển thị web
+      - ./frontend:/usr/share/nginx/html
