@@ -23,7 +23,7 @@ class JournalInput(BaseModel):
     )
 
     model_config = ConfigDict(
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "date_time": "2024-01-15",
                 "title": "Nhật ký ngày đầu tuần",
