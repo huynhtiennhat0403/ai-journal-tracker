@@ -4,15 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mindfulness Journal</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Nhật Ký Tĩnh Tâm AI 🌿</h1>
+            <h1>Nhật Ký Tĩnh Tâm 🌿</h1>
             <p>Ghi chép, quán chiếu và thấu hiểu cảm xúc của bạn</p>
         </header>
         
+        <form id="journalForm">
+            <div class="input-group">
+                <label for="date_time">Ngày tháng</label>
+                <input type="date" id="date_time" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="title">Tiêu đề (Không bắt buộc)</label>
+                <input type="text" id="title" placeholder="Ví dụ: Cảm xúc ngày đầu tuần">
+            </div>
+            
+            <div class="input-group">
+                <label for="content">Nội dung nhật ký</label>
+                <textarea id="content" rows="6" placeholder="Hôm nay có sự kiện nào làm tâm trí bạn xao động, bực dọc hay tĩnh lặng? Hãy viết ra để quán chiếu..." required></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn">Phân Tích Bằng AI</button>
+        </form>
+
+        <div id="resultBox" class="hidden"></div>
     </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>

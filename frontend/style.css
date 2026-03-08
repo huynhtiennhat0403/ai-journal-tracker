@@ -1,3 +1,4 @@
+/* Khởi tạo cơ bản để làm sạch giao diện mặc định của trình duyệt */
 * {
     margin: 0;
     padding: 0;
@@ -11,31 +12,88 @@ body {
     display: flex;
     justify-content: center; /* Căn giữa nội dung theo chiều ngang */
     padding: 2rem;
-    padding-top: 1rem
 }
 
+/* Thẻ chứa toàn bộ ứng dụng */
 .container {
     width: 100%;
-    max-width: 500px; 
+    max-width: 650px; /* Độ rộng vừa phải để đọc chữ không bị mỏi mắt */
     background: #ffffff;
-    padding: 1rem 1rem;
-    border-radius: 16px; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
+    padding: 2.5rem 2rem;
+    border-radius: 16px; /* Bo góc mềm mại */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ tạo chiều sâu */
 }
 
 /* Phần tiêu đề */
 header {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 header h1 {
     color: #2c3e50;
-    font-size: 1rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 header p {
     color: #7f8c8d;
-    font-size: 0.6rem;
+    font-size: 1rem;
 }
+
+
+/* Block 4: Form & Nút bấm */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: #34495e;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.3s ease;
+    resize: vertical; /* Cho phép kéo giãn chiều dọc */
+}
+
+/* Hiệu ứng khi click chuột vào ô nhập liệu */
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background-color: #2ecc71;
+}
+
+/* Lớp tiện ích để ẩn các phần tử */
+.hidden {
+    display: none;
+}
+
