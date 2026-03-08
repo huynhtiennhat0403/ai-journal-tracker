@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6; /* Màu nền thư giãn */
+    color: #333;
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    padding: 2rem;
+    padding-top: 1rem
+}
+
+.container {
+    width: 100%;
+    max-width: 500px; 
+    background: #ffffff;
+    padding: 1rem 1rem;
+    border-radius: 16px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
+}
+
+/* Phần tiêu đề */
+header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 0.6rem;
+}
