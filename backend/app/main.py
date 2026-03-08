@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 import httpx
-from models import JournalInput
+from backend.app.schemas import JournalInput
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
