@@ -19,9 +19,9 @@ document.getElementById('journalForm').addEventListener('submit', async function
 
     // 2. Gom dữ liệu từ các ô nhập liệu
     const payload = {
-        ngay_thang: document.getElementById('date_time').value,
-        tieu_de: document.getElementById('title').value,
-        noi_dung: document.getElementById('content').value
+        date_time: document.getElementById('date_time').value,
+        title: document.getElementById('title').value,
+        content: document.getElementById('content').value
     };
 
     try {
@@ -55,11 +55,10 @@ document.getElementById('journalForm').addEventListener('submit', async function
 // Hàm phụ trợ để in dữ liệu JSON ra giao diện HTML đẹp mắt
 function renderResult(data) {
     const resultBox = document.getElementById('resultBox');
+    const wrapper = document.getElementById('layoutWrapper');
     
-    // Biến mảng cảm xúc thành các thẻ (tag) HTML
     const emotionsHtml = data.cam_xuc_chinh.map(em => `<span class="emotion-tag">${em}</span>`).join('');
 
-    // Đổ nội dung vào thẻ div resultBox
     resultBox.innerHTML = `
         <h3>Kết quả quán chiếu 🧘</h3>
         <div class="result-item">
@@ -75,6 +74,12 @@ function renderResult(data) {
         </div>
     `;
     
-    // Bỏ class 'hidden' để hiện cái hộp lên
+    // Hiện result box và kích hoạt layout 2 cột
     resultBox.classList.remove('hidden');
+    wrapper.classList.add('has-result');
+    
+    // Delay nhỏ để CSS transition chạy mượt
+    setTimeout(() => {
+        resultBox.classList.add('visible');
+    }, 50);
 }

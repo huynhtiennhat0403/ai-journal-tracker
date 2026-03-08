@@ -12,16 +12,35 @@ body {
     display: flex;
     justify-content: center; 
     padding: 2rem;
+    transition: all 0.5s ease;
 }
 
+
+
 /* Thẻ chứa toàn bộ ứng dụng */
+.layout-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1300px;
+    align-items: flex-start;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.layout-wrapper.has-result .container {
+    max-width: 500px;
+}
+
 .container {
     width: 100%;
-    max-width: 650px; 
+    max-width: 650px;
     background: #ffffff;
     padding: 2.5rem 2rem;
     border-radius: 16px; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: max-width 0.5s ease, transform 0.5s ease;
+    flex-shrink: 0;
 }
 
 /* Phần tiêu đề */
@@ -99,12 +118,23 @@ button:hover {
 
 /* Block 8: Khung hiển thị kết quả AI */
 #resultBox {
-    margin-top: 1.5rem;
+    margin-top: 0;
     padding: 1.25rem;
-    background-color: #e8f8f5; /* Xanh ngọc siêu nhạt */
-    border-left: 4px solid #1abc9c; /* Viền nhấn bên trái */
+    background-color: #e8f8f5;
+    border-left: 4px solid #1abc9c;
     border-radius: 8px;
-    animation: fadeIn 0.5s ease; /* Hiệu ứng mờ dần hiện ra */
+    width: 400px;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+
+#resultBox.visible {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
 #resultBox h3 {
