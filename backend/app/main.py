@@ -1,7 +1,15 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 import httpx
-from backend.app.schemas import JournalInput
+from app.schemas import JournalInput
 from fastapi.middleware.cors import CORSMiddleware
+
+from sqlalchemy.orm import Session
+
+# Import các file kiến trúc 
+from app import models, schemas, crud
+from app.database import engine, get_db
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Mindfulness Journal API",
@@ -23,7 +31,7 @@ def read_root():
     return {"message": "Welcome to the Mindfulness Journal API!"}
 
 @app.post("/api/analyze")
-async def analyze_journal(entry: JournalInput):
+async def analyze_journal(entry: JournalInput, db: Session = Depends(get_db)):
     payload = {
         "ngay_thang": entry.date_time,
         "tieu_de": entry.title,
@@ -34,9 +42,12 @@ async def analyze_journal(entry: JournalInput):
         try:
             response = await client.post(N8N_WEBHOOK_URL, json=payload)
             response.raise_for_status() 
+            ai_result = response.json()
+            
+            db_entry = crud.create_journal_entry(db=db, entry=entry, ai_result=ai_result)
 
             # Trả nguyên dữ liệu JSON từ n8n về cho Frontend
-            return response.json()
+            return ai_result
         
         except httpx.HTTPStatusError as e:
             raise HTTPException(status_code=500, detail=f"Lỗi từ n8n: {e}")
