@@ -52,3 +52,29 @@ document.getElementById('journalForm').addEventListener('submit', async function
     }
 });
 
+// Hàm phụ trợ để in dữ liệu JSON ra giao diện HTML đẹp mắt
+function renderResult(data) {
+    const resultBox = document.getElementById('resultBox');
+    
+    // Biến mảng cảm xúc thành các thẻ (tag) HTML
+    const emotionsHtml = data.cam_xuc_chinh.map(em => `<span class="emotion-tag">${em}</span>`).join('');
+
+    // Đổ nội dung vào thẻ div resultBox
+    resultBox.innerHTML = `
+        <h3>Kết quả quán chiếu 🧘</h3>
+        <div class="result-item">
+            <strong>Nguyên nhân cốt lõi:</strong>
+            <p>${data.nguyen_nhan_cot_loi}</p>
+        </div>
+        <div class="result-item">
+            <strong>Gợi ý chánh niệm:</strong>
+            <p>${data.goi_y_chanh_niem}</p>
+        </div>
+        <div class="result-tags">
+            ${emotionsHtml}
+        </div>
+    `;
+    
+    // Bỏ class 'hidden' để hiện cái hộp lên
+    resultBox.classList.remove('hidden');
+}
