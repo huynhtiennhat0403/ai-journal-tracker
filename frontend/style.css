@@ -7,21 +7,21 @@
 }
 
 body {
-    background-color: #f4f7f6; /* Màu nền thư giãn */
+    background-color: #f4f7f6; 
     color: #333;
     display: flex;
-    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    justify-content: center; 
     padding: 2rem;
 }
 
 /* Thẻ chứa toàn bộ ứng dụng */
 .container {
     width: 100%;
-    max-width: 650px; /* Độ rộng vừa phải để đọc chữ không bị mỏi mắt */
+    max-width: 650px; 
     background: #ffffff;
     padding: 2.5rem 2rem;
-    border-radius: 16px; /* Bo góc mềm mại */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ tạo chiều sâu */
+    border-radius: 16px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
 }
 
 /* Phần tiêu đề */
@@ -64,7 +64,7 @@ header p {
     font-size: 0.85rem;
     outline: none;
     transition: all 0.3s ease;
-    resize: vertical; /* Cho phép kéo giãn chiều dọc */
+    resize: vertical;
 }
 
 /* Hiệu ứng khi click chuột vào ô nhập liệu */
